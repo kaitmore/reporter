@@ -1,4 +1,4 @@
-# Reporter
+# Release Reporter
 
 A service that generates cross-repo release reports based off of GitHub and ZenHub data. It has 2 functions:
     - a scraper that fetches data and caches it in redis, meant to be run as a cron job
@@ -6,14 +6,14 @@ A service that generates cross-repo release reports based off of GitHub and ZenH
 
 ## Configuration
 
-| Name            | Type   | Default | Description                                                                                                        |
-|-----------------|--------|---------|--------------------------------------------------------------------------------------------------------------------|
-| GITHUB_TOKEN    | String | ""      | Github [access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) |
-| ZENHUB_TOKEN    | String | ""      | Zenhub [access token](https://github.com/ZenHubIO/API#authentication)                                              |
-| REDIS_HOST      | String | ""      | Redis host name                                                                                                    |
-| REDIS_PASSWORD  | String | ""      | Redis password                                                                                                     |
-| REDIS_PORT      | String | 6379    | Redis port                                                                                                         |
-| RELEASE_REPO_ID | String | ""      | Repository ID that contains releases                                                                               |
+| Name            | Type   | Default | Description                                                                                                                                                  |
+|-----------------|--------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| GITHUB_TOKEN    | String | ""      | Github [access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)                                           |
+| ZENHUB_TOKEN    | String | ""      | Zenhub [access token](https://github.com/ZenHubIO/API#authentication)                                                                                        |
+| REDIS_HOST      | String | ""      | Redis host name                                                                                                                                              |
+| REDIS_PASSWORD  | String | ""      | Redis password                                                                                                                                               |
+| REDIS_PORT      | String | 6379    | Redis port                                                                                                                                                   |
+| RELEASE_REPO_ID | String | ""      | ID of a repository that is associated with the releases you want to track. This is used as the starting point for fetching release data across repositories. |
 
 ## Development
 
@@ -42,3 +42,10 @@ Kubernetes deployment files can be found in the top level `/kubernetes` director
 for f in kubernetes/*.yaml; do kubectl apply -f $f; done
 ```
 
+## Authors
+
+Kait Moreno - <kaitlinmoreno.com>
+
+## License
+
+This project is licensed under MIT - see the LICENSE file for details
