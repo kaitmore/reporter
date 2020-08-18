@@ -1,1 +1,1 @@
-module.exports = require('./epics.routes');
+module.exports = require("./epics.routes");

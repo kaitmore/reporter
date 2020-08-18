@@ -27,7 +27,7 @@ services:
   scraper:
     build:
       context: .
-      dockerfile: ./scraper/Dockerfile
+      dockerfile: ./src/scraper/Dockerfile
     networks:
       - redis-net
     depends_on:

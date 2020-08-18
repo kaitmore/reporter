@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const joi = require('joi');
+const joi = require("joi");
 
 /**
  * Generate a validation schema using joi to check the type of your environment variables
@@ -23,9 +23,11 @@ if (error) {
 }
 
 const config = {
-  githubToken: envVars.GITHUB_TOKEN,
-  zenhubToken: envVars.ZENHUB_TOKEN,
-  releaseRepoID: envVars.RELEASE_REPO_ID,
+  scraper: {
+    githubToken: envVars.GITHUB_TOKEN,
+    zenhubToken: envVars.ZENHUB_TOKEN,
+    releaseRepoID: envVars.RELEASE_REPO_ID,
+  },
 };
 
 module.exports = config;

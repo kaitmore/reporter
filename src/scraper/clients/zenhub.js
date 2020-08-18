@@ -1,13 +1,13 @@
-const axios = require('axios');
+const axios = require("axios");
 
 module.exports = class Zenhub {
-  constructor({ host = 'https://api.zenhub.com', auth }) {
+  constructor({ host = "https://api.zenhub.com", auth }) {
     this.host = host;
     this.auth = auth;
   }
   async _fetch(endpoint) {
     const { data } = await axios.get(this.host + endpoint, {
-      headers: { 'X-Authentication-Token': this.auth },
+      headers: { "X-Authentication-Token": this.auth },
     });
     return data;
   }

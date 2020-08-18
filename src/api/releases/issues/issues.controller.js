@@ -1,22 +1,21 @@
-'use strict';
+"use strict";
 
-const redis = require('../../../db');
-const _ = require('lodash');
+const redis = require("../../../db");
 
-const { headers, generateIssuesReport } = require('./issues.report');
-const csv = require('../../../utils/csv.util');
-const { getIssuesByEpic } = require('../../../utils/selectors.util');
+const { headers, generateIssuesReport } = require("./issues.report");
+const csv = require("../../../utils/csv.util");
+const { getIssuesByEpic } = require("../../../utils/selectors.util");
 
 exports.getAll = async ctx => {
   const { releaseID, epicID } = ctx.params;
   const fileName = `release-${releaseID}-issues`;
 
-  let stringified_issues = await redis.get('issues_by_release');
+  let stringified_issues = await redis.get("issues_by_release");
   let issues = JSON.parse(stringified_issues)[releaseID];
   ctx.assert(issues, 404, `Could not find issues in release '${releaseID}'`);
 
   if (epicID) {
-    let stringified_epics = await redis.get('epics_by_release');
+    let stringified_epics = await redis.get("epics_by_release");
     let epics_by_release = JSON.parse(stringified_epics)[releaseID];
 
     issues = getIssuesByEpic(issues, epics_by_release, epicID);
@@ -31,7 +30,7 @@ exports.getAll = async ctx => {
 
   let file = csv(headers, transformedIssues);
 
-  ctx.set('Content-disposition', `attachment; filename=${fileName}.csv`);
+  ctx.set("Content-disposition", `attachment; filename=${fileName}.csv`);
   ctx.status = 200;
   ctx.body = file;
 };

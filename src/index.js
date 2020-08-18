@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
-const http = require('http');
-const server = require('./server');
+const http = require("http");
+const server = require("./server");
 
-const config = require('./config').server;
+const config = require("./config").server;
 
 async function bootstrap() {
   /**
    * External services init
    */
-  require('./db');
+  require("./db");
   return http.createServer(server.callback()).listen(config.port);
 }
 
@@ -19,7 +19,7 @@ bootstrap()
   )
   .catch(err => {
     setImmediate(() => {
-      console.error('Unable to run the server because of the following error:');
+      console.error("Unable to run the server because of the following error:");
       console.error(err);
       process.exit();
     });

@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const joi = require('joi');
+const joi = require("joi");
 
 /**
  * Generate a validation schema using joi to check the type of environment variables

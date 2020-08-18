@@ -4,21 +4,21 @@
 
 const headers = [
   {
-    id: 'release_id',
-    title: 'ID',
+    id: "release_id",
+    title: "ID",
   },
-  { id: 'title', title: 'Title' },
+  { id: "title", title: "Title" },
   {
-    id: 'description',
-    title: 'Description',
-  },
-  {
-    id: 'desired_end_date',
-    title: 'Desired End Date',
+    id: "description",
+    title: "Description",
   },
   {
-    id: 'state',
-    title: 'Status',
+    id: "desired_end_date",
+    title: "Desired End Date",
+  },
+  {
+    id: "state",
+    title: "Status",
   },
 ];
 

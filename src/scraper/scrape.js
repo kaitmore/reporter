@@ -1,10 +1,10 @@
-const _ = require('lodash');
+const _ = require("lodash");
 
-const redis = require('../db');
-const config = require('../config').database;
+const redis = require("../db");
+const config = require("../config").scraper;
 
-const Zenhub = require('./clients/zenhub');
-const Github = require('./clients/github');
+const Zenhub = require("./clients/zenhub");
+const Github = require("./clients/github");
 
 const zenhub = new Zenhub({ auth: config.zenhubToken });
 const github = Github(config.githubToken);
@@ -17,10 +17,10 @@ const cache = {
 };
 
 (async function() {
-  console.log(`⚽️ Fetching all releases...`);
+  console.log("⚽️ Fetching all releases...");
 
   const releases = await zenhub.getReleases(config.releaseRepoID);
-  cache.releases = _.keyBy(releases, 'release_id');
+  cache.releases = _.keyBy(releases, "release_id");
 
   for (let release_id in cache.releases) {
     const release = cache.releases[release_id];
@@ -32,23 +32,23 @@ const cache = {
       release.release_id,
     );
     // group issues by repo
-    const repos = _.groupBy(issues_by_release, 'repo_id');
+    const repos = _.groupBy(issues_by_release, "repo_id");
 
     console.log(
-      ' 🏈 Fetching the corresponding github issues by repository...',
+      " 🏈 Fetching the corresponding github issues by repository...",
     );
     for (let repo_id in repos) {
       try {
         const { data: repository } = await github.repos.getById({
           id: repo_id,
         });
-        console.log('  ', '✅', repository.name);
+        console.log("  ", "✅", repository.name);
         cache.repositories[repo_id] = _.pick(repository, [
-          'id',
-          'full_name',
-          'private',
-          'owner',
-          'organization',
+          "id",
+          "full_name",
+          "private",
+          "owner",
+          "organization",
         ]);
 
         for (var i = 0; i < repos[repo_id].length; i++) {
@@ -97,12 +97,12 @@ const cache = {
       }
     }
   }
-  console.log('✍️', 'Writing cache to redis...');
-  await redis.set('epics_by_release', JSON.stringify(cache.epics_by_release));
-  await redis.set('issues_by_release', JSON.stringify(cache.issues_by_release));
-  await redis.set('repositories', JSON.stringify(cache.repositories));
-  await redis.set('releases', JSON.stringify(cache.releases));
-  console.log('🏅', 'Finished updating cache!');
+  console.log("✍️", "Writing cache to redis...");
+  await redis.set("epics_by_release", JSON.stringify(cache.epics_by_release));
+  await redis.set("issues_by_release", JSON.stringify(cache.issues_by_release));
+  await redis.set("repositories", JSON.stringify(cache.repositories));
+  await redis.set("releases", JSON.stringify(cache.releases));
+  console.log("🏅", "Finished updating cache!");
   process.exit();
 })();
 

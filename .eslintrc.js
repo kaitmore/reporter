@@ -12,6 +12,24 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    // Add here all the extra rules based on the developer preferences
+    'no-nested-ternary': 'error',
+    'prettier/prettier': [
+      'off',
+      {
+        bracketSpacing: true,
+        jsxBracketSameLine: false,
+        printWidth: 80,
+        semi: true,
+        singleQuote: false,
+        tabWidth: 2,
+        trailingComma: 'none',
+        useTabs: false,
+      },
+    ],
+    camelcase: ['off'],
+    eqeqeq: ['off'],
+    quotes: [1, 'double'],
+    'linebreak-style': [2, 'unix'],
+    'jsx-a11y/href-no-hash': 'off',
   },
 };

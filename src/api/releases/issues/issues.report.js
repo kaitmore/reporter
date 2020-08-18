@@ -14,24 +14,24 @@ function generateIssuesReport(issues) {
 
 const headers = [
   {
-    id: 'repo',
-    title: 'Repository',
+    id: "repo",
+    title: "Repository",
   },
   {
-    id: 'title',
-    title: 'Issue',
+    id: "title",
+    title: "Issue",
   },
   {
-    id: 'points',
-    title: 'Total Points',
+    id: "points",
+    title: "Total Points",
   },
   {
-    id: 'status',
-    title: 'Status',
+    id: "status",
+    title: "Status",
   },
   {
-    id: 'epic_title',
-    title: 'Parent Epic',
+    id: "epic_title",
+    title: "Parent Epic",
   },
 ];
 
