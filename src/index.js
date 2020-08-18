@@ -15,7 +15,7 @@ async function bootstrap() {
 
 bootstrap()
   .then(server =>
-    console.log(`🚀 Server listening on port ${server.address().port}!`),
+    console.log(`🚀 Server listening on port ${server.address().port}!`)
   )
   .catch(err => {
     setImmediate(() => {

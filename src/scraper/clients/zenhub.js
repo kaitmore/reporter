@@ -7,7 +7,7 @@ module.exports = class Zenhub {
   }
   async _fetch(endpoint) {
     const { data } = await axios.get(this.host + endpoint, {
-      headers: { "X-Authentication-Token": this.auth },
+      headers: { "X-Authentication-Token": this.auth }
     });
     return data;
   }

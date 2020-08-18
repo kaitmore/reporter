@@ -9,7 +9,7 @@ const envSchema = joi
   .object({
     REDIS_HOST: joi.string(),
     REDIS_PORT: joi.number(),
-    REDIS_PASSWORD: joi.string(),
+    REDIS_PASSWORD: joi.string()
   })
   .unknown()
   .required();
@@ -26,8 +26,8 @@ const config = {
   database: {
     redisHost: envVars.REDIS_HOST,
     redisPort: envVars.REDIS_PORT,
-    redisPassword: envVars.REDIS_PASSWORD,
-  },
+    redisPassword: envVars.REDIS_PASSWORD
+  }
 };
 
 module.exports = config;

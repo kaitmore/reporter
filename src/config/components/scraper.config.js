@@ -9,7 +9,7 @@ const envSchema = joi
   .object({
     GITHUB_TOKEN: joi.string(),
     ZENHUB_TOKEN: joi.string(),
-    RELEASE_REPO_ID: joi.string(),
+    RELEASE_REPO_ID: joi.string()
   })
   .unknown()
   .required();
@@ -26,8 +26,8 @@ const config = {
   scraper: {
     githubToken: envVars.GITHUB_TOKEN,
     zenhubToken: envVars.ZENHUB_TOKEN,
-    releaseRepoID: envVars.RELEASE_REPO_ID,
-  },
+    releaseRepoID: envVars.RELEASE_REPO_ID
+  }
 };
 
 module.exports = config;

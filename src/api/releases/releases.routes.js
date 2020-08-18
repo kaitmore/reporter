@@ -4,7 +4,7 @@ const controller = require("./releases.controller");
 
 module.exports = Router => {
   const router = new Router({
-    prefix: "/releases",
+    prefix: "/releases"
   });
 
   router

@@ -9,7 +9,7 @@ const envSchema = joi
   .object({
     NODE_ENV: joi.string().allow(["development", "production", "test"]),
     PORT: joi.number(),
-    API_VERSION: joi.number(),
+    API_VERSION: joi.number()
   })
   .unknown()
   .required();
@@ -28,8 +28,8 @@ const config = {
   isDevelopment: envVars.NODE_ENV === "development",
   server: {
     port: envVars.PORT || 3000,
-    apiVersion: envVars.API_VERSION || "v1",
-  },
+    apiVersion: envVars.API_VERSION || "v1"
+  }
 };
 
 module.exports = config;

@@ -13,7 +13,7 @@ const cache = {
   releases: {},
   epics_by_release: {},
   issues_by_release: {},
-  repositories: {},
+  repositories: {}
 };
 
 (async function() {
@@ -25,22 +25,22 @@ const cache = {
   for (let release_id in cache.releases) {
     const release = cache.releases[release_id];
     console.log(
-      ` ⚾️ Fetching all zenhub issues in release '${release.title}'`,
+      ` ⚾️ Fetching all zenhub issues in release '${release.title}'`
     );
     // array of issues with issue_number and repo_id
     const issues_by_release = await zenhub.getIssuesByRelease(
-      release.release_id,
+      release.release_id
     );
     // group issues by repo
     const repos = _.groupBy(issues_by_release, "repo_id");
 
     console.log(
-      " 🏈 Fetching the corresponding github issues by repository...",
+      " 🏈 Fetching the corresponding github issues by repository..."
     );
     for (let repo_id in repos) {
       try {
         const { data: repository } = await github.repos.getById({
-          id: repo_id,
+          id: repo_id
         });
         console.log("  ", "✅", repository.name);
         cache.repositories[repo_id] = _.pick(repository, [
@@ -48,7 +48,7 @@ const cache = {
           "full_name",
           "private",
           "owner",
-          "organization",
+          "organization"
         ]);
 
         for (var i = 0; i < repos[repo_id].length; i++) {
@@ -57,7 +57,7 @@ const cache = {
           let { data: github_issue } = await github.issues.get({
             owner: repository.organization.login,
             repo: repository.name,
-            issue_number,
+            issue_number
           });
 
           let zenhub_issue;
@@ -72,7 +72,7 @@ const cache = {
             ...zenhub_issue,
             release_id,
             repo_id,
-            repo: repository.name,
+            repo: repository.name
           };
           if (zenhub_issue && zenhub_issue.is_epic) {
             const epic = await zenhub.getEpic(repo_id, issue_number);

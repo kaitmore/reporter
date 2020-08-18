@@ -6,7 +6,7 @@ function generateEpicsReport(epics, issues) {
     const total_issues = e.issues.length;
     const completed_issues = e.issues.reduce((a, i) => {
       const issue = issues[`${i.repo_id}:${i.issue_number}`];
-      return issue && issue.state === 'closed' ? a++ : a;
+      return issue && issue.state === "closed" ? a++ : a;
     }, 0);
     const remaining_issues = total_issues - completed_issues;
 
@@ -25,44 +25,44 @@ function generateEpicsReport(epics, issues) {
       title: e.title,
       status: e.state,
       repo: e.repo,
-      remaining_points,
+      remaining_points
     };
   });
 }
 
 const headers = [
   {
-    id: 'id',
-    title: 'ID',
+    id: "id",
+    title: "ID"
   },
   {
-    id: 'repo',
-    title: 'Repository',
+    id: "repo",
+    title: "Repository"
   },
   {
-    id: 'title',
-    title: 'Epic',
+    id: "title",
+    title: "Epic"
   },
   {
-    id: 'total_points',
-    title: 'Total Points',
+    id: "total_points",
+    title: "Total Points"
   },
   {
-    id: 'remaining_points',
-    title: 'Remaining Points',
+    id: "remaining_points",
+    title: "Remaining Points"
   },
   {
-    id: 'total_issues',
-    title: '# Total Issues',
+    id: "total_issues",
+    title: "# Total Issues"
   },
   {
-    id: 'remaining_issues',
-    title: '# Remaining Issues',
+    id: "remaining_issues",
+    title: "# Remaining Issues"
   },
   {
-    id: 'status',
-    title: 'Status',
-  },
+    id: "status",
+    title: "Status"
+  }
 ];
 
 module.exports = { headers, generateEpicsReport };

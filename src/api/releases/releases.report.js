@@ -5,21 +5,21 @@
 const headers = [
   {
     id: "release_id",
-    title: "ID",
+    title: "ID"
   },
   { id: "title", title: "Title" },
   {
     id: "description",
-    title: "Description",
+    title: "Description"
   },
   {
     id: "desired_end_date",
-    title: "Desired End Date",
+    title: "Desired End Date"
   },
   {
     id: "state",
-    title: "Status",
-  },
+    title: "Status"
+  }
 ];
 
 module.exports = { headers };

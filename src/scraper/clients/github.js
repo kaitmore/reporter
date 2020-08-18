@@ -1,6 +1,6 @@
 const { Octokit } = require("@octokit/rest");
 
-module.exports = function (auth) {
+module.exports = function(auth) {
   const octokit = new Octokit({ auth });
   Object.assign(octokit.repos, {
     getById: octokit.request.defaults({
@@ -9,10 +9,10 @@ module.exports = function (auth) {
       params: {
         id: {
           type: "string",
-          required: true,
-        },
-      },
-    }),
+          required: true
+        }
+      }
+    })
   });
   return octokit;
 };

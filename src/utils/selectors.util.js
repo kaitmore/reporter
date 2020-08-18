@@ -6,7 +6,7 @@ const getIssuesByEpic = (issues, epics, epicID) => {
   return (
     epic &&
     epic.issues.map(e =>
-      issues.find(i => i.repo_id == e.repo_id && i.number == e.issue_number),
+      issues.find(i => i.repo_id == e.repo_id && i.number == e.issue_number)
     )
   );
 };

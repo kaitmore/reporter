@@ -15,7 +15,7 @@ exports.getAll = async ctx => {
 
   let epics_to_report = generateEpicsReport(
     epics_by_release[releaseID],
-    issues_by_release[releaseID],
+    issues_by_release[releaseID]
   );
 
   let file = csv(headers, epics_to_report);
