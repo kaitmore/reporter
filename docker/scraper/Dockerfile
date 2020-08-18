@@ -5,10 +5,10 @@ FROM node:10-alpine
 RUN mkdir -p /app
 WORKDIR /app
 
-COPY ./src/scraper ./scraper
-COPY ./src/config ./config
+COPY ./src/scraper ./src/scraper
+COPY ./src/config ./src/config
 COPY ./package.json .
-COPY ./src/db.js .
+COPY ./src/db.js ./src
 
 RUN ["npm", "i"]
 

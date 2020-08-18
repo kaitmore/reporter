@@ -6,7 +6,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # copy src
-COPY ./src .
+COPY ./src ./src
 COPY package.json .
 
 RUN ["npm", "i"]

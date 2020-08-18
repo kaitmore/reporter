@@ -28,7 +28,7 @@ Fill out the `.env` file with your GitHub and ZenHub credentials, then run the f
 
 ```sh
 npm install
-npm start
+npm run start:dev
 ```
 
 This will bring up a development docker-compose with Redis, a scraper, and the reporter API. The scraper runs once and then exits. Source code is mounted into the reporter container, so the API will recompile with any code changes.
