@@ -2,6 +2,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: reporter-scraper
+  namespace: reporter
 spec:
   schedule: "0 0 * * *"
   jobTemplate:
@@ -9,8 +10,9 @@ spec:
       template:
         spec:
           containers:
-          - name: hello
-            image: docker.greymatter.io/internal/reporter-scraper
+          - name: reporter
+            image: docker.greymatter.io/internal/reporter-scraper:latest
+            imagePullPolicy: Always
             env: 
             - name: GITHUB_TOKEN
               valueFrom:
@@ -37,4 +39,11 @@ spec:
                 configMapKeyRef:
                   key: ZENHUB_TOKEN
                   name: env
+            - name: RELEASE_REPO_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: RELEASE_REPO_ID
+                  name: env
           restartPolicy: OnFailure
+          imagePullSecrets:
+           - name: docker.greymatter.io

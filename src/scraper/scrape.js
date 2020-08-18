@@ -16,6 +16,12 @@ const cache = {
   repositories: {}
 };
 
+console.log(
+  "🚀 Scraper is running with the following config: \n",
+  config,
+  " \n"
+);
+
 (async function() {
   console.log("⚽️ Fetching all releases...");
 

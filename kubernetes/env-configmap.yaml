@@ -1,14 +1,15 @@
 apiVersion: v1
 data:
-  GITHUB_TOKEN: ""
-  REDIS_HOST: ""
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
   REDIS_PASSWORD: ""
-  REDIS_PORT: ""
-  RELEASE_REPO_ID: ""
+  GITHUB_TOKEN: ""
   ZENHUB_TOKEN: ""
+  RELEASE_REPO_ID: ""
 kind: ConfigMap
 metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: redis-env
   name: env
+  namespace: reporter

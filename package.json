@@ -15,7 +15,7 @@
     "test": "NODE_ENV=test jest --watch",
     "build:push": "npm run build && npm run push",
     "push": "docker push docker.greymatter.io/internal/reporter-scraper:latest && docker push docker.greymatter.io/internal/reporter:latest",
-    "build": "docker build -f docker/reporter/Dockerfile -t docker.greymatter.io/internal/reporter . & docker build -f docker/scraper/Dockerfile -t docker.greymatter.io/internal/reporter-scraper ."
+    "build": "docker build -f docker/reporter/Dockerfile -t docker.greymatter.io/internal/reporter:latest . & docker build -f docker/scraper/Dockerfile -t docker.greymatter.io/internal/reporter-scraper:latest ."
   },
   "devDependencies": {
     "eslint": "5.16.0",

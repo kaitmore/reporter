@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: redis
   name: redis
+  namespace: reporter
 spec:
   replicas: 1
   selector:
@@ -33,11 +34,6 @@ spec:
         - --port
         - "$(REDIS_PORT)"
         env:
-        - name: GITHUB_TOKEN
-          valueFrom:
-            configMapKeyRef:
-              key: GITHUB_TOKEN
-              name: env
         - name: REDIS_HOST
           valueFrom:
             configMapKeyRef:
@@ -52,16 +48,6 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: REDIS_PORT
-              name: env
-        - name: RELEASE_REPO_ID
-          valueFrom:
-            configMapKeyRef:
-              key: RELEASE_REPO_ID
-              name: env
-        - name: ZENHUB_TOKEN
-          valueFrom:
-            configMapKeyRef:
-              key: ZENHUB_TOKEN
               name: env
         image: redis:5.0.8-buster
         imagePullPolicy: "Always"
@@ -85,4 +71,6 @@ spec:
       - name: redis-data
         persistentVolumeClaim:
           claimName: redis-data
+      imagePullSecrets:
+      - name: docker.greymatter.io
 status: {}

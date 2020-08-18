@@ -4,10 +4,10 @@ metadata:
   annotations:
     kompose.cmd: kompose convert -f docker-compose.prod.yaml
     kompose.version: 1.21.0 ()
-  creationTimestamp: null
   labels:
     io.kompose.service: reporter
   name: reporter
+  namespace: reporter
 spec:
   replicas: 1
   selector:
@@ -19,7 +19,6 @@ spec:
       annotations:
         kompose.cmd: kompose convert -f docker-compose.prod.yaml
         kompose.version: 1.21.0 ()
-      creationTimestamp: null
       labels:
         io.kompose.network/redis-net: "true"
         io.kompose.service: reporter
@@ -51,13 +50,13 @@ spec:
             configMapKeyRef:
               key: ZENHUB_TOKEN
               name: env
-        image: docker.greymatter.io/internal/reporter
-        imagePullPolicy: ""
+        image: docker.greymatter.io/internal/reporter:latest
+        imagePullPolicy: "Always"
         name: reporter
         ports:
         - containerPort: 3000
         resources: {}
       restartPolicy: Always
-      serviceAccountName: ""
-      volumes: null
+      imagePullSecrets:
+      - name: docker.greymatter.io
 status: {}

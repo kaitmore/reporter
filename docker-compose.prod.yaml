@@ -23,7 +23,7 @@ services:
       - redis-data:/data
 
   scraper:
-    image: docker.greymatter.io/internal/reporter-scraper
+    image: docker.greymatter.io/internal/reporter-scraper:latest
     networks:
       - redis-net
     depends_on:
@@ -31,7 +31,7 @@ services:
     env_file: .env
 
   reporter:
-    image: docker.greymatter.io/internal/reporter
+    image: docker.greymatter.io/internal/reporter:latest
     ports: 
       - 3000:3000
     networks:
