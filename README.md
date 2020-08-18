@@ -45,7 +45,7 @@ for f in kubernetes/*.yaml; do kubectl apply -f $f; done
 
 ## Authors
 
-Kait Moreno - <kaitlinmoreno.com>
+Kait Moreno - <https://kaitlinmoreno.com>
 
 ## License
 
