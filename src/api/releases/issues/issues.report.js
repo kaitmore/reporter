@@ -3,7 +3,6 @@
  */
 function generateIssuesReport(issues) {
   return issues.map(i => {
-    if (i.id == 616322903) console.log(i);
     return {
       id: i.id,
       title: JSON.stringify(i.title),
