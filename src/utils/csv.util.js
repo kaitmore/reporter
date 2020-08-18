@@ -4,8 +4,9 @@ module.exports = function writeCSV(headers, data) {
   let fileString = "";
   let separator = ",";
 
-  headers.forEach(h => {
-    fileString += `${h.title}${separator}`;
+  headers.forEach((h, i) => {
+    fileString += h.title;
+    if (i !== headers.length - 1) fileString += separator;
   });
 
   fileString += "\n";
@@ -18,5 +19,5 @@ module.exports = function writeCSV(headers, data) {
     fileString += "\n";
   });
 
-  return fileString;
+  return fileString.trim(",");
 };
