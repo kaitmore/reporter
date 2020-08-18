@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "check": "npm run format && npm run lint",
-    "dev": "NODE_ENV=development nodemon index.js",
+    "dev": "NODE_ENV=development nodemon src/index.js",
     "format": "prettier --write \"**/*.+(js|yml|yaml|json)\"",
     "lint": "eslint . --fix",
     "start": "docker-compose -f docker-compose.dev.yaml up -d",

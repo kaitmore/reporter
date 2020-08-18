@@ -13,19 +13,6 @@ module.exports = {
   },
   rules: {
     'no-nested-ternary': 'error',
-    'prettier/prettier': [
-      'off',
-      {
-        bracketSpacing: true,
-        jsxBracketSameLine: false,
-        printWidth: 80,
-        semi: true,
-        singleQuote: false,
-        tabWidth: 2,
-        trailingComma: 'none',
-        useTabs: false,
-      },
-    ],
     camelcase: ['off'],
     eqeqeq: ['off'],
     quotes: [1, 'double'],

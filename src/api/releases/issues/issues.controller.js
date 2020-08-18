@@ -22,7 +22,7 @@ exports.getAll = async ctx => {
     ctx.assert(
       issues,
       404,
-      `Could not find issues for epic with ID '${epicID}'`,
+      `Could not find issues for epic with ID '${epicID}'`
     );
   }
 
