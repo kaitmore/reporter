@@ -3,12 +3,13 @@
  */
 function generateIssuesReport(issues) {
   return issues.map(i => {
+    if (i.id == 616322903) console.log(i);
     return {
       id: i.id,
-      title: i.title,
+      title: JSON.stringify(i.title),
       status: i.state,
       repo: i.repo,
-      points: i.estimate && i.estimate.value
+      points: (i.estimate && i.estimate.value) || 0
     };
   });
 }

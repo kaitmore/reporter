@@ -27,7 +27,7 @@ function generateEpicsReport(epics, issues) {
       completed_issues,
       remaining_issues,
       total_issues,
-      title: e.title,
+      title: JSON.stringify(e.title),
       status: e.state,
       repo: e.repo,
       remaining_points
