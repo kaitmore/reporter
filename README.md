@@ -1,8 +1,9 @@
 # Release Reporter
 
 A service that generates cross-repo release reports based off of GitHub and ZenHub data. It has 2 functions:
-    - a scraper that fetches data and caches it in redis, meant to be run as a cron job
-    - an API for accessing reports
+
+   - a scraper that fetches data and caches it in redis, meant to be run as a cron job
+   - an API for accessing reports
 
 ## Configuration
 
