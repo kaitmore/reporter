@@ -1,0 +1,47 @@
+version: "3.7"
+
+services:
+  redis:
+    image: redis:5.0.8-buster
+    hostname: redis
+    networks:
+      - redis-net
+    env_file: .env
+    ports:
+     - 6379:6379
+    command:
+      [
+        "redis-server",
+        "--appendonly",
+        "yes",
+        "--requirepass",
+        "${REDIS_PASSWORD}",
+        "--port",
+        "${REDIS_PORT}",
+      ]
+    volumes:
+      - redis-data:/data
+
+  scraper:
+    image: docker.greymatter.io/internal/reporter-scraper
+    networks:
+      - redis-net
+    depends_on:
+      - redis
+    env_file: .env
+
+  reporter:
+    image: docker.greymatter.io/internal/reporter
+    ports: 
+      - 3000:3000
+    networks:
+      - redis-net
+    depends_on:
+      - redis
+    env_file: .env
+
+networks:
+  redis-net:
+
+volumes:
+  redis-data:

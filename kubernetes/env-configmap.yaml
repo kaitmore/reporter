@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  GITHUB_TOKEN: ""
+  REDIS_HOST: ""
+  REDIS_PASSWORD: ""
+  REDIS_PORT: ""
+  RELEASE_REPO_ID: ""
+  ZENHUB_TOKEN: ""
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: redis-env
+  name: env

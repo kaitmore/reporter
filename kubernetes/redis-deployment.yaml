@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.prod.yaml
+    kompose.version: 1.21.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: redis
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: redis
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.prod.yaml
+        kompose.version: 1.21.0 ()
+      creationTimestamp: null
+      labels:
+        io.kompose.network/redis-net: "true"
+        io.kompose.service: redis
+    spec:
+      containers:
+      - args:
+        - redis-server
+        - --requirepass
+        - "$(REDIS_PASSWORD)"
+        - --port
+        - "$(REDIS_PORT)"
+        env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            configMapKeyRef:
+              key: GITHUB_TOKEN
+              name: env
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: REDIS_HOST
+              name: env
+        - name: REDIS_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: REDIS_PASSWORD
+              name: env
+        - name: REDIS_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: REDIS_PORT
+              name: env
+        - name: RELEASE_REPO_ID
+          valueFrom:
+            configMapKeyRef:
+              key: RELEASE_REPO_ID
+              name: env
+        - name: ZENHUB_TOKEN
+          valueFrom:
+            configMapKeyRef:
+              key: ZENHUB_TOKEN
+              name: env
+        image: redis:5.0.8-buster
+        imagePullPolicy: "Always"
+        name: redis
+        ports:
+        - containerPort: 6379
+        resources:
+            limits:
+              cpu: 200m
+              memory: 500Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+        volumeMounts:
+        - mountPath: /data
+          name: redis-data
+      hostname: redis
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: redis-data
+        persistentVolumeClaim:
+          claimName: redis-data
+status: {}

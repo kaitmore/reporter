@@ -1,0 +1,40 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: reporter-scraper
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: docker.greymatter.io/internal/reporter-scraper
+            env: 
+            - name: GITHUB_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  key: GITHUB_TOKEN
+                  name: env
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_HOST
+                  name: env
+            - name: REDIS_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_PASSWORD
+                  name: env
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_PORT
+                  name: env
+            - name: ZENHUB_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  key: ZENHUB_TOKEN
+                  name: env
+          restartPolicy: OnFailure

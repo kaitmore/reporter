@@ -1,0 +1,51 @@
+{
+  "name": "reporter-koa",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "check": "npm run format && npm run lint",
+    "dev": "NODE_ENV=development nodemon index.js",
+    "format": "prettier --write \"**/*.+(js|yml|yaml|json)\"",
+    "lint": "eslint .",
+    "start": "docker-compose -f docker-compose.dev.yaml up -d",
+    "start:prod": "docker-compose -f docker-compose.prod.yaml up -d",
+    "scrape": "node scraper/scrape.js",
+    "test": "NODE_ENV=test jest --watch",
+    "build:push": "npm run build &&& npm run push",
+    "push": "docker push docker.greymatter.io/internal/reporter-scraper:latest && docker push docker.greymatter.io/internal/reporter:latest",
+    "build": "docker build -f docker/reporter/Dockerfile -t docker.greymatter.io/internal/reporter . & docker build -f docker/scraper/Dockerfile -t docker.greymatter.io/internal/reporter-scraper ."
+  },
+  "devDependencies": {
+    "eslint": "5.16.0",
+    "eslint-config-prettier": "4.3.0",
+    "eslint-config-standard": "12.0.0",
+    "eslint-plugin-import": "2.17.2",
+    "eslint-plugin-jest": "22.5.1",
+    "eslint-plugin-node": "9.0.1",
+    "eslint-plugin-prettier": "3.1.0",
+    "eslint-plugin-promise": "4.1.1",
+    "eslint-plugin-standard": "4.0.0",
+    "husky": "2.3.0",
+    "jest": "^26.4.0",
+    "nodemon": "1.19.0",
+    "prettier": "1.17.1"
+  },
+  "dependencies": {
+    "@koa/cors": "2.2.3",
+    "@octokit/rest": "^18.0.3",
+    "axios": "^0.19.2",
+    "dotenv": "^8.0.0",
+    "ioredis": "^4.17.3",
+    "joi": "14.3.1",
+    "koa": "2.7.0",
+    "koa-bodyparser": "4.2.1",
+    "koa-compress": "3.0.0",
+    "koa-helmet": "4.1.0",
+    "koa-joi-router": "^6.0.2",
+    "koa-logger": "3.2.0",
+    "koa-router": "7.4.0",
+    "lodash": "^4.17.20",
+    "uuid": "3.3.2"
+  }
+}
