@@ -7,6 +7,7 @@ const joi = require("joi");
  */
 const envSchema = joi
   .object({
+    CODECLIMATE_TOKEN: joi.string(),
     GITHUB_TOKEN: joi.string(),
     ZENHUB_TOKEN: joi.string(),
     RELEASE_REPO_ID: joi.string()
@@ -24,6 +25,7 @@ if (error) {
 
 const config = {
   scraper: {
+    codeclimateToken: envVars.CODECLIMATE_TOKEN,
     githubToken: envVars.GITHUB_TOKEN,
     zenhubToken: envVars.ZENHUB_TOKEN,
     releaseRepoID: envVars.RELEASE_REPO_ID

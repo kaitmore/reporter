@@ -5,7 +5,9 @@ const config = require("../config").scraper;
 
 const Zenhub = require("./clients/zenhub");
 const Github = require("./clients/github");
+const CodeClimate = require("./clients/codeclimate");
 
+const codeclimate = new CodeClimate({ token: config.codeclimateToken });
 const zenhub = new Zenhub({ auth: config.zenhubToken });
 const github = Github(config.githubToken);
 
@@ -56,6 +58,23 @@ console.log(
           "owner",
           "organization"
         ]);
+
+        cache.repositories[repo_id].coverage = 0.0
+        cache.repositories[repo_id].lines = 0
+
+        try {
+          let cc_repository = await codeclimate.getRepository(repository.full_name);
+          if (cc_repository.data.length > 0) {
+            let coverage = await codeclimate.getCoverage(cc_repository.data[0].id, repository.default_branch);
+            if (coverage.data.length > 0) {
+              let attributes = coverage.data[0].attributes
+              cache.repositories[repo_id].coverage = attributes.covered_percent
+              cache.repositories[repo_id].lines = attributes.lines_of_code
+            }
+          }
+        } catch (e) {
+          console.error(e);
+        }
 
         for (var i = 0; i < repos[repo_id].length; i++) {
           const issue_number = repos[repo_id][i].issue_number;
