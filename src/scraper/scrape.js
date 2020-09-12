@@ -15,7 +15,8 @@ const cache = {
   releases: {},
   epics_by_release: {},
   issues_by_release: {},
-  repositories: {}
+  repositories: {},
+  pull_requests: {}
 };
 
 console.log(
@@ -50,7 +51,26 @@ console.log(
         const { data: repository } = await github.repos.getById({
           id: repo_id
         });
-        console.log("  ", "✅", repository.name);
+        console.log("   ", repository.name);
+
+        const { data: pull_requests } = await github.pulls.list({
+          owner: repository.organization.login,
+          repo: repository.name
+        });
+
+        pull_requests.forEach(pr => {
+          if (pr.state === "open") {
+            cache.pull_requests[pr.id] = _.pick(pr, [
+              "id",
+              "title",
+              "user",
+              "created_at",
+              "url"
+            ]);
+            cache.pull_requests[pr.id].repository = repository.name;
+          }
+        });
+
         cache.repositories[repo_id] = _.pick(repository, [
           "id",
           "full_name",
@@ -59,17 +79,22 @@ console.log(
           "organization"
         ]);
 
-        cache.repositories[repo_id].coverage = 0.0
-        cache.repositories[repo_id].lines = 0
+        cache.repositories[repo_id].coverage = 0.0;
+        cache.repositories[repo_id].lines = 0;
 
         try {
-          let cc_repository = await codeclimate.getRepository(repository.full_name);
+          let cc_repository = await codeclimate.getRepository(
+            repository.full_name
+          );
           if (cc_repository.data.length > 0) {
-            let coverage = await codeclimate.getCoverage(cc_repository.data[0].id, repository.default_branch);
+            let coverage = await codeclimate.getCoverage(
+              cc_repository.data[0].id,
+              repository.default_branch
+            );
             if (coverage.data.length > 0) {
-              let attributes = coverage.data[0].attributes
-              cache.repositories[repo_id].coverage = attributes.covered_percent
-              cache.repositories[repo_id].lines = attributes.lines_of_code
+              let attributes = coverage.data[0].attributes;
+              cache.repositories[repo_id].coverage = attributes.covered_percent;
+              cache.repositories[repo_id].lines = attributes.lines_of_code;
             }
           }
         } catch (e) {
@@ -127,6 +152,7 @@ console.log(
   await redis.set("issues_by_release", JSON.stringify(cache.issues_by_release));
   await redis.set("repositories", JSON.stringify(cache.repositories));
   await redis.set("releases", JSON.stringify(cache.releases));
+  await redis.set("pull_requests", JSON.stringify(cache.pull_requests));
   console.log("🏅", "Finished updating cache!");
   process.exit();
 })();
