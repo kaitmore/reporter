@@ -6,11 +6,11 @@ const { headers, generateCoveragesReport } = require("./coverages.report");
 const csv = require("../../utils/csv.util");
 
 exports.getAll = async ctx => {
-  const fileName = `coverages`;
+  const fileName = "coverages";
 
   let stringified_repositories = await redis.get("repositories");
   let repositories = JSON.parse(stringified_repositories);
-  ctx.assert(repositories, 404, `Could not find coverages'`);
+  ctx.assert(repositories, 404, "Could not find coverages'");
 
   let transformedCoverages = generateCoveragesReport(repositories);
 
@@ -20,4 +20,3 @@ exports.getAll = async ctx => {
   ctx.status = 200;
   ctx.body = file;
 };
-
