@@ -6,6 +6,7 @@ data:
   GITHUB_TOKEN: ""
   ZENHUB_TOKEN: ""
   RELEASE_REPO_ID: ""
+  CODECLIMATE_TOKEN: ""
 kind: ConfigMap
 metadata:
   creationTimestamp: null
