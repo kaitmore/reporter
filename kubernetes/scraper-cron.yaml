@@ -44,6 +44,11 @@ spec:
                 configMapKeyRef:
                   key: RELEASE_REPO_ID
                   name: env
+            - name: CODECLIMATE_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  key: CODECLIMATE_TOKEN
+                  name: env
           restartPolicy: OnFailure
           imagePullSecrets:
            - name: docker.greymatter.io
