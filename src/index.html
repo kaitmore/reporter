@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      * {
+        font-size: 18px !important;
+      }
+      table {
+        width: 100%;
+      }
+      img {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+      }
+    </style>
+    <title>Pull Requests</title>
+    <meta name="description" content="The HTML5 Herald" />
+    <meta name="author" content="SitePoint" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css"
+    />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </head>
+
+  <body>
+    <table class="mdl-data-table mdl-js-data-table">
+      <thead>
+        <tr>
+          <th class="mdl-data-table__cell--non-numeric">Time Since Opened</th>
+          <th class="mdl-data-table__cell--non-numeric">Title</th>
+          <th class="mdl-data-table__cell--non-numeric">User</th>
+          <th class="mdl-data-table__cell--non-numeric">Repository</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <script>
+      const headers = ["time_open", "title", "user", "repo_name"];
+      fetch("/releases/5e40d9ae1eda182411a7bbff/pull_requests")
+        .then(response => response.json())
+        .then(data => {
+          data.forEach(r => {
+            let tr = document.createElement("tr");
+            headers.forEach(h => {
+              let node = document.createElement("td");
+              if (h === "title") {
+                let a = document.createElement("a");
+                a.setAttribute("href", r.url);
+                a.setAttribute("target", "_blank");
+                a.innerText = r[h];
+                node.appendChild(a);
+              } else if (h === "user") {
+                let img = document.createElement("img");
+                img.setAttribute("src", r.avatar_url);
+                img.setAttribute("title", r.user);
+                node.appendChild(img);
+              } else {
+                node.innerText = r[h];
+              }
+              node.setAttribute("class", "mdl-data-table__cell--non-numeric");
+              tr.appendChild(node);
+            });
+
+            document.querySelector("tbody").append(tr);
+          });
+        });
+    </script>
+  </body>
+</html>
