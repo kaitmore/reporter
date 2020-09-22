@@ -3,7 +3,7 @@
 const redis = require("../../db");
 
 const { headers, generateCoveragesReport } = require("./coverages.report");
-const csv = require("../../utils/csv.util");
+const { serveRequest } = require("../../utils/helpers.util");
 
 exports.getAll = async ctx => {
   const fileName = "coverages";
@@ -14,9 +14,5 @@ exports.getAll = async ctx => {
 
   let transformedCoverages = generateCoveragesReport(repositories);
 
-  let file = csv(headers, transformedCoverages);
-
-  ctx.set("Content-disposition", `attachment; filename=${fileName}.csv`);
-  ctx.status = 200;
-  ctx.body = file;
+  serveRequest(ctx, transformedCoverages, headers, fileName);
 };
