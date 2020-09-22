@@ -13,7 +13,7 @@ module.exports = function writeCSV(headers, data) {
 
   _.flatMap(data).forEach(r => {
     headers.forEach((c, i) => {
-      fileString += `${_.get(r, c.id)}`;
+      fileString += JSON.stringify(_.get(r, c.id));
       if (i != headers.length - 1) fileString += separator;
     });
     fileString += "\n";

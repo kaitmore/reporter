@@ -5,7 +5,7 @@ function generateIssuesReport(issues) {
   return issues.map(i => {
     return {
       id: i.id,
-      title: JSON.stringify(i.title),
+      title: i.title,
       status: i.state,
       repo: i.repo,
       points: (i.estimate && i.estimate.value) || 0
