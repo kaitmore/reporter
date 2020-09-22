@@ -30,7 +30,6 @@ console.log(
 
   const releases = await zenhub.getReleases(config.releaseRepoID);
   cache.releases = _.keyBy(releases, "release_id");
-  let release_id = "5e40d9ae1eda182411a7bbff";
   for (let release_id in cache.releases) {
     const release = cache.releases[release_id];
     console.log(
