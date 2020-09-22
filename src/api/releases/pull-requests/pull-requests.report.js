@@ -16,7 +16,8 @@ function generatePullRequestsReport(pull_requests) {
       user: pull_requests[id].user.login,
       created_at: pull_requests[id].created_at,
       time_open: time_open,
-      url: pull_requests[id].html_url
+      url: pull_requests[id].html_url,
+      avatar_url: pull_requests[id].user.avatar_url
     };
   });
 
