@@ -2,16 +2,13 @@
 
 const redis = require("../../db");
 
-const csv = require("../../utils/csv.util");
+const { serveRequest } = require("../../utils/helpers.util");
 const { headers } = require("./releases.report");
 
 exports.getAll = async ctx => {
   let stringified_releases = await redis.get("releases");
   let releases = JSON.parse(stringified_releases);
   let fileName = "releases";
-  let file = csv(headers, releases);
 
-  ctx.set("Content-disposition", `attachment; filename=${fileName}.csv`);
-  ctx.status = 200;
-  ctx.body = file;
+  serveRequest(ctx, releases, headers, fileName);
 };

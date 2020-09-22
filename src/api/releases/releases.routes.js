@@ -10,6 +10,10 @@ module.exports = Router => {
   router
     .use("/:releaseID/epics", require("./epics")(Router).routes())
     .use("/:releaseID/issues", require("./issues")(Router).routes())
+    .use(
+      "/:releaseID/pull_requests",
+      require("./pull-requests")(Router).routes()
+    )
     .use("/:releaseID", require("./epics")(Router).routes())
     .get("/", controller.getAll);
 

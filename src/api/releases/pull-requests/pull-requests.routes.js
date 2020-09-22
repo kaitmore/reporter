@@ -3,9 +3,7 @@
 const controller = require("./pull-requests.controller");
 
 module.exports = Router => {
-  const router = new Router({
-    prefix: "/pull-requests"
-  });
+  const router = new Router();
 
   router.get("/", controller.getAll);
 

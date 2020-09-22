@@ -1,28 +1,32 @@
+const _ = require("lodash");
+const { get_time_since_date } = require("../../../utils/helpers.util");
+
 /**
  * Takes a map of open pull requests and returns a report
  */
 function generatePullRequestsReport(pull_requests) {
-  return Object.keys(pull_requests).map(id => {
-    console.log(pull_requests[id].user);
+  const report = Object.keys(pull_requests).map(id => {
+    const time_open = get_time_since_date(
+      new Date(pull_requests[id].created_at)
+    );
     return {
       id: id,
       repo_name: pull_requests[id].repository,
       title: pull_requests[id].title,
       user: pull_requests[id].user.login,
       created_at: pull_requests[id].created_at,
-      url: pull_requests[id].url
+      time_open: JSON.stringify(time_open),
+      url: pull_requests[id].html_url
     };
   });
+
+  return _.sortBy(report, r => -new Date(r.created_at));
 }
 
 const headers = [
   {
-    id: "id",
-    title: "Pull Request ID"
-  },
-  {
-    id: "created_at",
-    title: "Created At"
+    id: "time_open",
+    title: "Time Since Opened"
   },
   {
     id: "repo_name",
