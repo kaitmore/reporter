@@ -44,7 +44,7 @@
     </table>
     <script>
       const headers = ["time_open", "title", "user", "repo_name"];
-      fetch("/releases/5e40d9ae1eda182411a7bbff/pull_requests")
+      fetch("./releases/5e40d9ae1eda182411a7bbff/pull_requests")
         .then(response => response.json())
         .then(data => {
           data.forEach(r => {

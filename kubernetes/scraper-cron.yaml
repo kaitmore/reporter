@@ -4,7 +4,7 @@ metadata:
   name: reporter-scraper
   namespace: reporter
 spec:
-  schedule: "0 0 * * *"
+  schedule: "0 10 * * *"
   jobTemplate:
     spec:
       template:
