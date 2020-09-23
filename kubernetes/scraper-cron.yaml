@@ -4,8 +4,8 @@ metadata:
   name: reporter-scraper
   namespace: reporter
 spec:
-  # https://crontab.guru/#*/30_9-17_*_*_*
-  schedule: "*/30 9-17 * * *"
+  # https://crontab.guru/#0_9-17_*_*_*
+  schedule: "0 9-17 * * *"
   jobTemplate:
     spec:
       template:
